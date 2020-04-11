@@ -29,9 +29,7 @@ class HealthCheck {
 
   private modifyIndex: number;
 
-  constructor(source: any) {
-    if (typeof source === 'string') source = JSON.parse(source);
-
+  constructor(source: Record<string, any>) {
     this.node = source.Node;
     this.checkId = source.CheckId;
     this.name = source.Name;

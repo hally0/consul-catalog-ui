@@ -7,6 +7,10 @@ class ConsulConnection {
 
   connection: AxiosInstance;
 
+  /**
+   * Creates an instance of consul connection.
+   * Fallback to localhost if env variables is undefined
+   */
   constructor() {
     if (typeof process.env.REACT_APP_CONSUL_URL !== 'undefined') {
       this.host = process.env.REACT_APP_CONSUL_URL;
@@ -24,6 +28,10 @@ class ConsulConnection {
     });
   }
 
+  /**
+   * Gets connection
+   * @returns the axios connection
+   */
   getConnection() {
     return this.connection;
   }

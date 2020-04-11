@@ -1,9 +1,7 @@
-import { AxiosResponse } from 'axios';
 import CatalogService from './ConsulService';
 import ConsulConnection from './ConsulConnection';
 import HealthEndpoint from './HealthEndpoint';
 import Node from './ConsulNode';
-import HealthCheck from './HealthCheck';
 
 class CatalogEndpoint {
   endpointUrl = '/v1/catalog';
@@ -14,13 +12,22 @@ class CatalogEndpoint {
     this.consulConnection = new ConsulConnection();
   }
 
-  async getNodes() {
-    const repsonse = await this.consulConnection
-      .getConnection()
-      .get(`${this.endpointUrl}/nodes`);
-    return repsonse.data;
+  /**
+   * Gets nodes
+   * @returns axios data response for all nodes
+   */
+  async getNodes(): Promise<Record<string, any>> {
+    const response = await this.consulConnection.getConnection().request({
+      method: 'get',
+      url: `${this.endpointUrl}/nodes`,
+    });
+    return response.data;
   }
 
+  /**
+   * Gets all nodes
+   * @returns a list of all the nodes
+   */
   async getAllNodes() {
     const results = await this.getNodes();
     const consulNodes: Node[] = [];
@@ -30,6 +37,10 @@ class CatalogEndpoint {
     return consulNodes;
   }
 
+  /**
+   * Gets service names
+   * @returns axios data response for the service
+   */
   async getServiceNames() {
     const response = await this.consulConnection
       .getConnection()
@@ -37,36 +48,42 @@ class CatalogEndpoint {
     return response.data;
   }
 
-  async getServiceByName(serviceName: string): Promise<AxiosResponse> {
+  /**
+   * Gets service by name
+   * @param serviceName the service name to fetch data for
+   * @returns service by name
+   */
+  async getServiceByName(serviceName: string): Promise<CatalogService> {
     const response = await this.consulConnection
       .getConnection()
       .get(`${this.endpointUrl}/service/${serviceName}`);
-    return response.data;
+    return new CatalogService(response.data[0]);
   }
 
-  private async getServicesData(healthEndpoint: HealthEndpoint) {
+  /**
+   * Gets all services from the catalog
+   * @param healthEndpoint the health endpoint
+   * @returns services with service checks
+   */
+  async getServices(healthEndpoint: HealthEndpoint): Promise<CatalogService[]> {
     const results = await this.getServiceNames();
-    const consulServices: CatalogService[] = [];
-    for (let i = 0; i < results.length; i += 1) {
-      const serviceData = this.getServiceByName(results[i].toString());
-      consulServices.push(new CatalogService(serviceData));
-    }
-    await Promise.all(consulServices);
-    const healthChecks: HealthCheck[][] = [];
-    for (let i = 0; i < results.length; i += 1) {
-      if (consulServices[i].enabled) {
-        healthChecks.push(
-          healthEndpoint.getServiceChecks(consulServices[i].serviceName)
-        );
-      }
-    }
-    await Promise.all(healthChecks);
-    for (let i = 0; i < healthChecks.length; i += 1) {
-      const name = healthChecks[i][0].$serviceName;
-      for (let j = 0; j < consulServices.length; j += 1) {
-        consulServices[j];
-      }
-    }
+    const promiseServices: Promise<CatalogService>[] = [];
+    Object.entries(results).forEach((value) => {
+      promiseServices.push(
+        // Fetch service
+        this.getServiceByName(value[0]).then((service) =>
+          // Fetch related checks for the services
+          healthEndpoint.getServiceCheck(value[0]).then((checks) => {
+            service.setServiceChecks(checks);
+            return service;
+          })
+        )
+      );
+    });
+    // Wait to resolve all the promises
+    return Promise.all(promiseServices).then((services) => {
+      return services;
+    });
   }
 }
 export default CatalogEndpoint;

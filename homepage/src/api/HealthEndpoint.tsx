@@ -1,5 +1,3 @@
-import { AxiosResponse } from 'axios';
-import { promises } from 'fs';
 import ConsulConnection from './ConsulConnection';
 import HealthCheck from './HealthCheck';
 
@@ -12,20 +10,31 @@ class HealthEndpoint {
     this.consulConnection = new ConsulConnection();
   }
 
-  async getServiceCheck(serviceName: string | null): Promise<AxiosResponse> {
+  /**
+   * Gets service check
+   * @param serviceName the service name to fetch checks for
+   * @returns the service checks
+   */
+  async getServiceCheck(serviceName: string): Promise<HealthCheck[]> {
+    const checks: HealthCheck[] = [];
     const response = await this.consulConnection
       .getConnection()
       .get(`${this.endpointUrl}/checks/${serviceName}`);
-    return response.data;
+    for (let i = 0; i < response.data.length; i += 1) {
+      checks.push(new HealthCheck(response.data[i]));
+    }
+    return checks;
   }
 
+  /**
+   * Gets service checks. Not implemented
+   * @param serviceName
+   * @returns service checks
+   */
   getServiceChecks(serviceName: string): HealthCheck[] {
     const serviceChecks: HealthCheck[] = [];
     const results = this.getServiceCheck(serviceName);
-    for (let i = 0; i < results.length; i += 1) {
-      const serviceCheck = new HealthCheck(results[i]);
-      serviceChecks.push(serviceCheck);
-    }
+    // TODO
     return serviceChecks;
   }
 }

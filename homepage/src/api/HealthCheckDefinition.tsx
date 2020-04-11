@@ -11,8 +11,7 @@ class HealthCheckDefinition {
 
   private tcp: string;
 
-  constructor(source: any) {
-    if (typeof source === 'string') source = JSON.parse(source);
+  constructor(source: Record<string, any>) {
     this.http = source.http;
     this.header = source.header;
     this.method = source.method;

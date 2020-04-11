@@ -1,58 +1,57 @@
 class Node {
-  private id: string;
+  #id: string;
 
-  private node: string;
+  #node: string;
 
-  private address: string;
+  #address: string;
 
-  private datacenter: string;
+  #datacenter: string;
 
-  private taggedAddresses: { [key: string]: string };
+  #taggedAddresses: { [key: string]: string };
 
-  private meta: { [key: string]: string };
+  #meta: { [key: string]: string };
 
-  private createIndex: number;
+  #createIndex: number;
 
-  private modifyIndex: number;
+  #modifyIndex: number;
 
   /**
    * Creates an instance of node.
    * @param source
    */
-  constructor(source: any) {
-    if (typeof source === 'string') source = JSON.parse(source);
-    this.id = source.ID;
-    this.node = source.Node;
-    this.address = source.Address;
-    this.datacenter = source.Datacenter;
-    this.taggedAddresses = source.TaggedAddresses;
-    this.meta = source.Meta;
-    this.createIndex = source.CreateIndex;
-    this.modifyIndex = source.ModifyIndex;
+  constructor(source: Record<string, any>) {
+    this.#id = source.ID;
+    this.#node = source.Node;
+    this.#address = source.Address;
+    this.#datacenter = source.Datacenter;
+    this.#taggedAddresses = source.TaggedAddresses;
+    this.#meta = source.Meta;
+    this.#createIndex = source.CreateIndex;
+    this.#modifyIndex = source.ModifyIndex;
   }
 
   /**
    * Getter id
-   * @return {string}
+   * @return {string} the node id
    */
-  public get nodeID(): string {
-    return this.id;
+  public get id(): string {
+    return this.#id;
   }
 
   /**
    * Getter address
-   * @return {string}
+   * @return {string} the node address
    */
-  public get nodeAddress(): string {
-    return this.address;
+  public get address(): string {
+    return this.#address;
   }
 
   /**
    * Getter name
-   * @return {string}
+   * @return {string} the node name
    */
   public get nodeName(): string {
-    return this.node;
+    return this.#node;
   }
 }
 export default Node;

@@ -3,8 +3,7 @@ export class ServiceAddress {
 
   private port: number;
 
-  constructor(source: any) {
-    if (typeof source === 'string') source = JSON.parse(source);
+  constructor(source: Record<string, any>) {
     this.address = source.Address;
     this.port = source.Port;
   }

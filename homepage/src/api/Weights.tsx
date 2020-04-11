@@ -3,7 +3,7 @@ export class Weights {
 
   private warning: number;
 
-  constructor(source: any) {
+  constructor(source: Record<string, any>) {
     this.passing = source.Passing;
     this.warning = source.Warning;
   }
