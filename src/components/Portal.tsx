@@ -42,7 +42,7 @@ export const Portal: React.FunctionComponent = () => {
       setNodes(CatalogNodes);
     });
     setCount(count + 1);
-  }, 5000);
+  }, 60000);
 
   useEffect(() => {
     catalogEndpoint.getServices(healthEndpoint).then((consulServices) => {
@@ -56,7 +56,7 @@ export const Portal: React.FunctionComponent = () => {
     });
 
     setCount(count + 1);
-  }, 20000);
+  }, 60000);
 
   const classes = useStyles();
   return (
@@ -108,7 +108,7 @@ export const Portal: React.FunctionComponent = () => {
                           variant="body2"
                           component="p"
                         >
-                          {service.address}
+                          {service.nodeAddress}
                         </Typography>
                       </Address>
                     </CardContent>

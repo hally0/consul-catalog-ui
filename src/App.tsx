@@ -13,7 +13,7 @@ export const App: React.FunctionComponent = () => {
       <div className={classes.toolbar} />
       <Router>
         <Switch>
-          <Route exact path="/" component={Services} />
+          <Route exact path="/" component={Portal} />
           <Route path="/Portal" component={Portal} />
           <Route path="/Services" component={Services} />
           <Route path="/Nodes" component={Nodes} />

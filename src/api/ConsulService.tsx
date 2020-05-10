@@ -82,7 +82,7 @@ class CatalogService {
    * Getter address
    * @return {string} the service address
    */
-  public get address(): string {
+  public get nodeAddress(): string {
     return this.#address;
   }
 
@@ -214,7 +214,7 @@ class CatalogService {
    * @returns the formatted url
    */
   public get url(): string {
-    return `${this.protocoll}://${this.address}:${this.#servicePort}`;
+    return `${this.protocoll}://${this.nodeAddress}:${this.#servicePort}`;
   }
 
   /**
