@@ -1,11 +1,11 @@
 import axios, { AxiosInstance } from 'axios';
 
 class ConsulConnection {
-  host: string;
+  #host: string;
 
-  port: string;
+  #port: string;
 
-  connection: AxiosInstance;
+  #connection: AxiosInstance;
 
   /**
    * Creates an instance of consul connection.
@@ -13,17 +13,17 @@ class ConsulConnection {
    */
   constructor() {
     if (typeof process.env.REACT_APP_CONSUL_URL !== 'undefined') {
-      this.host = process.env.REACT_APP_CONSUL_URL;
+      this.#host = process.env.REACT_APP_CONSUL_URL;
     } else {
-      this.host = '127.0.0.1';
+      this.#host = '127.0.0.1';
     }
     if (typeof process.env.REACT_APP_CONSUL_PORT !== 'undefined') {
-      this.port = process.env.REACT_APP_CONSUL_PORT;
+      this.#port = process.env.REACT_APP_CONSUL_PORT;
     } else {
-      this.port = '8500';
+      this.#port = '8500';
     }
-    this.connection = axios.create({
-      baseURL: `http://${this.host}:${this.port}`,
+    this.#connection = axios.create({
+      baseURL: `http://${this.#host}:${this.#port}`,
       headers: { 'Content-Type': 'application/json' },
     });
   }
@@ -33,7 +33,7 @@ class ConsulConnection {
    * @returns the axios connection
    */
   getConnection() {
-    return this.connection;
+    return this.#connection;
   }
 }
 export default ConsulConnection;

@@ -1,11 +1,11 @@
 export class Weights {
-  private passing: number;
+  #passing: number;
 
-  private warning: number;
+  #warning: number;
 
   constructor(source: Record<string, any>) {
-    this.passing = source.Passing;
-    this.warning = source.Warning;
+    this.#passing = source.Passing;
+    this.#warning = source.Warning;
   }
 }
 export default Weights;

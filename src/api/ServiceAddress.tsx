@@ -1,11 +1,11 @@
 export class ServiceAddress {
-  private address: string;
+  #address: string;
 
-  private port: number;
+  #port: number;
 
   constructor(source: Record<string, any>) {
-    this.address = source.Address;
-    this.port = source.Port;
+    this.#address = source.Address;
+    this.#port = source.Port;
   }
 }
 export default ServiceAddress;

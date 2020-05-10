@@ -1,23 +1,23 @@
 class HealthCheckDefinition {
-  private http: string;
+  #http: string;
 
-  private header: { [key: string]: string };
+  #header: { [key: string]: string };
 
-  private method: string;
+  #method: string;
 
-  private body: string;
+  #body: string;
 
-  private tlsSkipVerify: boolean;
+  #tlsSkipVerify: boolean;
 
-  private tcp: string;
+  #tcp: string;
 
   constructor(source: Record<string, any>) {
-    this.http = source.http;
-    this.header = source.header;
-    this.method = source.method;
-    this.body = source.body;
-    this.tlsSkipVerify = source.tlsSkipVerify;
-    this.tcp = source.tcp;
+    this.#http = source.http;
+    this.#header = source.header;
+    this.#method = source.method;
+    this.#body = source.body;
+    this.#tlsSkipVerify = source.tlsSkipVerify;
+    this.#tcp = source.tcp;
   }
 }
 export default HealthCheckDefinition;

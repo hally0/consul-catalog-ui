@@ -156,7 +156,7 @@ class CatalogService {
   public get serviceCheckPassing(): boolean {
     let passing = false;
     this.#checks.forEach((check) => {
-      if (check.$status === 'passing') {
+      if (check.status === 'passing') {
         passing = true;
       }
     });
@@ -183,9 +183,9 @@ class CatalogService {
     let passing = 0;
     let failing = 0;
     this.#checks.forEach((check) => {
-      if (check.$status === 'passing') {
+      if (check.status === 'passing') {
         passing += 1;
-      } else if (check.$status === 'failing') {
+      } else if (check.status === 'failing') {
         failing += 1;
       }
     });

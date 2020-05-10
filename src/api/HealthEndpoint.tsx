@@ -2,12 +2,12 @@ import ConsulConnection from './ConsulConnection';
 import HealthCheck from './HealthCheck';
 
 class HealthEndpoint {
-  endpointUrl = '/v1/health';
+  #endpointUrl = '/v1/health';
 
-  consulConnection: ConsulConnection;
+  #consulConnection: ConsulConnection;
 
   constructor() {
-    this.consulConnection = new ConsulConnection();
+    this.#consulConnection = new ConsulConnection();
   }
 
   /**
@@ -17,9 +17,9 @@ class HealthEndpoint {
    */
   async getServiceCheck(serviceName: string): Promise<HealthCheck[]> {
     const checks: HealthCheck[] = [];
-    const response = await this.consulConnection
+    const response = await this.#consulConnection
       .getConnection()
-      .get(`${this.endpointUrl}/checks/${serviceName}`);
+      .get(`${this.#endpointUrl}/checks/${serviceName}`);
     for (let i = 0; i < response.data.length; i += 1) {
       checks.push(new HealthCheck(response.data[i]));
     }

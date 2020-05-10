@@ -4,12 +4,12 @@ import HealthEndpoint from './HealthEndpoint';
 import Node from './ConsulNode';
 
 class CatalogEndpoint {
-  endpointUrl = '/v1/catalog';
+  #endpointUrl = '/v1/catalog';
 
-  consulConnection: ConsulConnection;
+  #consulConnection: ConsulConnection;
 
   constructor() {
-    this.consulConnection = new ConsulConnection();
+    this.#consulConnection = new ConsulConnection();
   }
 
   /**
@@ -17,9 +17,9 @@ class CatalogEndpoint {
    * @returns axios data response for all nodes
    */
   async getNodes(): Promise<Record<string, any>> {
-    const response = await this.consulConnection.getConnection().request({
+    const response = await this.#consulConnection.getConnection().request({
       method: 'get',
-      url: `${this.endpointUrl}/nodes`,
+      url: `${this.#endpointUrl}/nodes`,
     });
     return response.data;
   }
@@ -42,9 +42,9 @@ class CatalogEndpoint {
    * @returns axios data response for the service
    */
   async getServiceNames() {
-    const response = await this.consulConnection
+    const response = await this.#consulConnection
       .getConnection()
-      .get(`${this.endpointUrl}/services`);
+      .get(`${this.#endpointUrl}/services`);
     return response.data;
   }
 
@@ -54,9 +54,9 @@ class CatalogEndpoint {
    * @returns service by name
    */
   async getServiceByName(serviceName: string): Promise<CatalogService> {
-    const response = await this.consulConnection
+    const response = await this.#consulConnection
       .getConnection()
-      .get(`${this.endpointUrl}/service/${serviceName}`);
+      .get(`${this.#endpointUrl}/service/${serviceName}`);
     return new CatalogService(response.data[0]);
   }
 
