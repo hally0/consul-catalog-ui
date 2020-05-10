@@ -1,7 +1,7 @@
-# Consul Homepage:
-Web UI for Consul! 
+# Consul Catalog UI:
+Web UI for the [Consul Catalog](https://www.consul.io/api/catalog.html)! 
 
-**Note: In progress**
+**Note: Work in progress**
 
 ## Homepage
 - Edit .env file and change the url and port of the consul leader
