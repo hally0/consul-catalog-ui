@@ -51,7 +51,9 @@ const Nodes: React.FunctionComponent = () => {
 
   useInterval(() => {
     catalogEndpoint.getAllNodes().then((CatalogNodes) => {
-      setNodes(CatalogNodes);
+      if (!catalogEndpoint.compareServicesOrNodes(nodes, CatalogNodes)) {
+        setNodes(CatalogNodes);
+      }
     });
     setCount(count + 1);
   }, 60000);
