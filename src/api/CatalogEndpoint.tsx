@@ -34,6 +34,7 @@ class CatalogEndpoint {
     for (let i = 0; i < results.length; i += 1) {
       consulNodes.push(new Node(results[i]));
     }
+    consulNodes.sort();
     return consulNodes;
   }
 
@@ -82,8 +83,22 @@ class CatalogEndpoint {
     });
     // Wait to resolve all the promises
     return Promise.all(promiseServices).then((services) => {
+      services.sort();
       return services;
     });
   }
+
+  compareServicesOrNodes = (
+    oldservices: CatalogService[] | Node[],
+    newServices: CatalogService[] | Node[]
+  ) => {
+    if (oldservices === newServices) return true;
+    if (newServices == null) return false;
+    if (oldservices.length !== newServices.length) return false;
+    for (let i = 0; i < newServices.length; i += 1) {
+      if (oldservices[i].id !== newServices[i].id) return false;
+    }
+    return true;
+  };
 }
 export default CatalogEndpoint;
