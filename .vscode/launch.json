@@ -5,10 +5,24 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "firefox",
+      "name": "Launch Firefox against localhost",
+      "url": "http://192.168.100.125:3000",
+      "webRoot": "${workspaceFolder}",
+      "request": "launch",
+      "reAttach": true,
+      "pathMappings": [
+        {
+          "url": "file:///home/hally/consul-catalog-ui/src",
+          "path": "${workspaceFolder}/src"
+        }
+      ]
+    },
+    {
       "type": "chrome",
       "request": "launch",
       "name": "Launch Chrome against localhost",
-      "url": "http://localhost:3000",
+      "url": "http://192.168.100.125:3000",
       "webRoot": "${workspaceFolder}"
     }
   ]
