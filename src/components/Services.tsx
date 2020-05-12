@@ -9,7 +9,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { green, grey } from '@material-ui/core/colors';
+import { green, grey} from '@material-ui/core/colors';
 import HttpsIcon from '@material-ui/icons/Https';
 import CatalogEndpoint from '../api/CatalogEndpoint';
 import CatalogService from '../api/ConsulService';
@@ -54,13 +54,11 @@ export const Services: React.FunctionComponent = () => {
 
   useInterval(() => {
     catalogEndpoint.getServices(healthEndpoint).then((consulServices) => {
-      if (!catalogEndpoint.compareServicesOrNodes(services, consulServices)) {
-        setServices(consulServices);
-      }
+      setServices(consulServices);
     });
 
     setCount(count + 1);
-  }, 20000);
+  }, 60000);
 
   const classes = useStyles();
 

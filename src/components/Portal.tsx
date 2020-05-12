@@ -24,10 +24,6 @@ export const Address = styled.div`
   align-items: center;
 `;
 
-const removeDisabledServices = (services: CatalogService[]) => {
-  return services.filter((service) => service.enabled);
-};
-
 export const Portal: React.FunctionComponent = () => {
   const [services, setServices] = useState<CatalogService[]>([]);
   const [nodes, setNodes] = useState<Node[]>([]);
@@ -43,24 +39,20 @@ export const Portal: React.FunctionComponent = () => {
 
   useInterval(() => {
     catalogEndpoint.getAllNodes().then((CatalogNodes) => {
-      if (!catalogEndpoint.compareServicesOrNodes(nodes, CatalogNodes)) {
-        setNodes(CatalogNodes);
-      }
+      setNodes(CatalogNodes);
     });
     setCount(count + 1);
   }, 60000);
 
   useEffect(() => {
     catalogEndpoint.getServices(healthEndpoint).then((consulServices) => {
-      setServices(removeDisabledServices(consulServices));
+      setServices(consulServices);
     });
   }, [catalogEndpoint, healthEndpoint]);
 
   useInterval(() => {
     catalogEndpoint.getServices(healthEndpoint).then((consulServices) => {
-      if (!catalogEndpoint.compareServicesOrNodes(services, consulServices)) {
-        setServices(removeDisabledServices(consulServices));
-      }
+      setServices(consulServices);
     });
 
     setCount(count + 1);
