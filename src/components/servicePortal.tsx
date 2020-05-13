@@ -12,8 +12,9 @@ import CatalogEndpoint from '../api/CatalogEndpoint';
 import CatalogService from '../api/ConsulService';
 import HealthEndpoint from '../api/HealthEndpoint';
 import { useInterval } from './UseInterval';
+import { synctime } from '../constants/Config';
+import PortalNavBar from './PortalNavbar';
 import '../App.css';
-import Node from '../api/ConsulNode';
 
 export const NameSection = styled.div`
   display: flex;
@@ -28,27 +29,11 @@ const removeDisabledServices = (services: CatalogService[]) => {
   return services.filter((service) => service.enabled);
 };
 
-export const Portal: React.FunctionComponent = () => {
+export const ServicePortal: React.FunctionComponent = () => {
   const [services, setServices] = useState<CatalogService[]>([]);
-  const [nodes, setNodes] = useState<Node[]>([]);
   const [catalogEndpoint] = useState<CatalogEndpoint>(new CatalogEndpoint());
   const [healthEndpoint] = useState<HealthEndpoint>(new HealthEndpoint());
   const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    catalogEndpoint.getAllNodes().then((CatalogNodes) => {
-      setNodes(CatalogNodes);
-    });
-  }, [catalogEndpoint]);
-
-  useInterval(() => {
-    catalogEndpoint.getAllNodes().then((CatalogNodes) => {
-      if (!catalogEndpoint.compareServicesOrNodes(nodes, CatalogNodes)) {
-        setNodes(CatalogNodes);
-      }
-    });
-    setCount(count + 1);
-  }, 60000);
 
   useEffect(() => {
     catalogEndpoint.getServices(healthEndpoint).then((consulServices) => {
@@ -64,12 +49,13 @@ export const Portal: React.FunctionComponent = () => {
     });
 
     setCount(count + 1);
-  }, 60000);
+  }, synctime());
 
   const classes = useStyles();
   return (
     <div className="App">
       <header className="App-header">
+        <PortalNavBar />
         <CardContent className={classes.cardBox}>
           {services &&
             services.map((service: CatalogService) => {
@@ -137,4 +123,4 @@ export const Portal: React.FunctionComponent = () => {
     </div>
   );
 };
-export default Portal;
+export default ServicePortal;

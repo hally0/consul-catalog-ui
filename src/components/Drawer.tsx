@@ -22,7 +22,11 @@ import Typography from '@material-ui/core/Typography';
 import { grey } from '@material-ui/core/colors';
 import { Link } from 'react-router-dom';
 import { useTheme } from '@material-ui/core/styles';
-import { nodes, services, portal } from '../constants/Routes';
+import {
+  nodesRoute,
+  servicesRoute,
+  servicePortalRoute,
+} from '../constants/Routes';
 import useStyles from './styles/DrawerStyle';
 import App from '../App';
 
@@ -44,13 +48,13 @@ function iconArray(name: string) {
 function routeArray(name: string) {
   switch (name) {
     case 'Portal':
-      return portal;
+      return servicePortalRoute;
     case 'Services':
-      return services;
+      return servicesRoute;
     case 'Nodes':
-      return nodes;
+      return nodesRoute;
     default:
-      return services;
+      return servicesRoute;
   }
 }
 
@@ -89,7 +93,7 @@ export default function MiniDrawer() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Consul Homepage
+            Consul Catalog UI
           </Typography>
         </Toolbar>
       </AppBar>

@@ -1,3 +1,4 @@
-export const services = '/services';
-export const nodes = '/nodes';
-export const portal = '/portal';
+export const servicesRoute = '/Services';
+export const nodesRoute = '/Nodes';
+export const servicePortalRoute = '/ServicePortal';
+export const nodePortalRoute = '/NodePortal';

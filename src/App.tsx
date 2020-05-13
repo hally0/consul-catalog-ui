@@ -2,9 +2,16 @@ import React from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import useStyles from './components/styles/DrawerStyle';
 import Services from './components/Services';
-import Portal from './components/Portal';
+import servicePortal from './components/servicePortal';
 import Nodes from './components/Nodes';
+import {
+  servicesRoute,
+  servicePortalRoute,
+  nodePortalRoute,
+  nodesRoute,
+} from './constants/Routes';
 import './App.css';
+import NodePortal from './components/nodePortal';
 
 export const App: React.FunctionComponent = () => {
   const classes = useStyles();
@@ -13,10 +20,11 @@ export const App: React.FunctionComponent = () => {
       <div className={classes.toolbar} />
       <Router>
         <Switch>
-          <Route exact path="/" component={Portal} />
-          <Route path="/Portal" component={Portal} />
-          <Route path="/Services" component={Services} />
-          <Route path="/Nodes" component={Nodes} />
+          <Route exact path="/" component={servicePortal} />
+          <Route path={servicePortalRoute} component={servicePortal} />
+          <Route path={nodePortalRoute} component={NodePortal} />
+          <Route path={servicesRoute} component={Services} />
+          <Route path={nodesRoute} component={Nodes} />
         </Switch>
       </Router>
     </div>

@@ -15,6 +15,7 @@ import CatalogEndpoint from '../api/CatalogEndpoint';
 import CatalogService from '../api/ConsulService';
 import HealthEndpoint from '../api/HealthEndpoint';
 import useInterval from './UseInterval';
+import synctime from '../constants/Config';
 import '../App.css';
 import useStyles from './styles/TableStyle';
 
@@ -60,9 +61,13 @@ export const Services: React.FunctionComponent = () => {
     });
 
     setCount(count + 1);
-  }, 20000);
+  }, synctime());
 
   const classes = useStyles();
+  const options = {
+    pageSize: 10,
+    pageSizeOptions: [5, 10, 20, 50],
+  };
 
   return (
     <div className="App">
@@ -84,6 +89,7 @@ export const Services: React.FunctionComponent = () => {
                 field: 'amountChecksPassingAndFailing',
               },
             ]}
+            options={options}
             data={services}
             detailPanel={(service) => {
               return (
