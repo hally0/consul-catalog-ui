@@ -16,10 +16,10 @@ class CatalogEndpoint {
    * Gets nodes
    * @returns axios data response for all nodes
    */
-  async getNodes(): Promise<Record<string, any>> {
+  async getResponse(path: string): Promise<Record<string, any>> {
     const response = await this.#consulConnection.getConnection().request({
       method: 'get',
-      url: `${this.#endpointUrl}/nodes`,
+      url: `${this.#endpointUrl}/${path}`,
     });
     return response.data;
   }
@@ -29,13 +29,29 @@ class CatalogEndpoint {
    * @returns a list of all the nodes
    */
   async getAllNodes() {
-    const results = await this.getNodes();
+    const results = await this.getResponse('nodes');
     const consulNodes: Node[] = [];
     for (let i = 0; i < results.length; i += 1) {
       consulNodes.push(new Node(results[i]));
     }
     consulNodes.sort();
     return consulNodes;
+  }
+
+  /**
+   *
+   */
+  async getNode(nodeName: string): Promise<[Node, CatalogService[]]> {
+    const results = await this.getResponse(`node/${nodeName}`);
+    const nodeResults = results.Node;
+    const servicesResults = results.Services;
+    let services: CatalogService[] = [];
+    await this.getServiceObjects(new HealthEndpoint(), servicesResults).then(
+      (serviceObjects) => {
+        services = serviceObjects;
+      }
+    );
+    return [new Node(nodeResults), services];
   }
 
   /**
@@ -68,6 +84,24 @@ class CatalogEndpoint {
    */
   async getServices(healthEndpoint: HealthEndpoint): Promise<CatalogService[]> {
     const results = await this.getServiceNames();
+    let services: CatalogService[] = [];
+    await this.getServiceObjects(healthEndpoint, results).then(
+      (serviceResults) => {
+        services = serviceResults;
+      }
+    );
+    return services;
+  }
+
+  /**
+   * Gets all services from the catalog
+   * @param healthEndpoint the health endpoint
+   * @returns services with service checks
+   */
+  async getServiceObjects(
+    healthEndpoint: HealthEndpoint,
+    results: any
+  ): Promise<CatalogService[]> {
     const promiseServices: Promise<CatalogService>[] = [];
     Object.entries(results).forEach((value) => {
       promiseServices.push(
