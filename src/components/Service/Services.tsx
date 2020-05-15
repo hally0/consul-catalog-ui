@@ -11,13 +11,13 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { green, grey } from '@material-ui/core/colors';
 import HttpsIcon from '@material-ui/icons/Https';
-import CatalogEndpoint from '../api/CatalogEndpoint';
-import CatalogService from '../api/ConsulService';
-import HealthEndpoint from '../api/HealthEndpoint';
-import useInterval from './UseInterval';
-import synctime from '../constants/Config';
-import '../App.css';
-import useStyles from './styles/TableStyle';
+import CatalogEndpoint from '../../api/CatalogEndpoint';
+import CatalogService from '../../api/ConsulService';
+import HealthEndpoint from '../../api/HealthEndpoint';
+import useInterval from '../Utils/UseInterval';
+import synctime from '../../constants/Config';
+import '../../App.css';
+import useStyles from '../styles/TableStyle';
 
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({

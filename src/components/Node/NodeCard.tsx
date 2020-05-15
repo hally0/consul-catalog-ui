@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Card, CardContent, Divider, Typography } from '@material-ui/core';
-import '../App.css';
+import '../../App.css';
 import Link from '@material-ui/core/Link';
-import useStyles from './styles/CardStyle';
-import Node from '../api/ConsulNode';
+import useStyles from '../styles/CardStyle';
+import Node from '../../api/ConsulNode';
 
 export const NameSection = styled.div`
   display: flex;

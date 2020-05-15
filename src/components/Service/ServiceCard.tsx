@@ -2,14 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import { green, grey, red } from '@material-ui/core/colors';
 import { Card, CardContent, Divider, Typography } from '@material-ui/core';
-import '../App.css';
+import '../../App.css';
 import LaunchIcon from '@material-ui/icons/Launch';
 import CheckIcon from '@material-ui/icons/Check';
 import ErrorIcon from '@material-ui/icons/Error';
 import HttpsIcon from '@material-ui/icons/Https';
 import Link from '@material-ui/core/Link';
-import CatalogService from '../api/ConsulService';
-import useStyles from './styles/CardStyle';
+import CatalogService from '../../api/ConsulService';
+import useStyles from '../styles/CardStyle';
 
 export const NameSection = styled.div`
   display: flex;

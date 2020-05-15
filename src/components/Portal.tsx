@@ -13,10 +13,10 @@ import CatalogEndpoint from '../api/CatalogEndpoint';
 import CatalogService from '../api/ConsulService';
 import Node from '../api/ConsulNode';
 import HealthEndpoint from '../api/HealthEndpoint';
-import { useInterval } from './UseInterval';
+import { useInterval } from './Utils/UseInterval';
 import { synctime } from '../constants/Config';
-import ServiceCard from './ServiceCard';
-import NodeCard from './NodeCard';
+import ServiceCard from './Service/ServiceCard';
+import NodeCard from './Node/NodeCard';
 import '../App.css';
 
 export const NameSection = styled.div`

@@ -3,13 +3,13 @@ import { RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { Card, CardContent, Divider, Typography } from '@material-ui/core';
-import useStyles from './styles/CardStyle';
-import CatalogEndpoint from '../api/CatalogEndpoint';
-import { useInterval } from './UseInterval';
-import synctime from '../constants/Config';
-import '../App.css';
-import Node from '../api/ConsulNode';
-import CatalogService from '../api/ConsulService';
+import useStyles from '../styles/CardStyle';
+import CatalogEndpoint from '../../api/CatalogEndpoint';
+import { useInterval } from '../Utils/UseInterval';
+import synctime from '../../constants/Config';
+import '../../App.css';
+import Node from '../../api/ConsulNode';
+import CatalogService from '../../api/ConsulService';
 
 export const NameSection = styled.div`
   display: flex;

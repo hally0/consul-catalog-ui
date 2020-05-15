@@ -1,7 +1,7 @@
 import MaterialTable from 'material-table';
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import '../App.css';
+import '../../App.css';
 import { withStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -11,10 +11,10 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-import CatalogEndpoint from '../api/CatalogEndpoint';
-import Node from '../api/ConsulNode';
-import { useInterval } from './UseInterval';
-import useStyles from './styles/TableStyle';
+import CatalogEndpoint from '../../api/CatalogEndpoint';
+import Node from '../../api/ConsulNode';
+import { useInterval } from '../Utils/UseInterval';
+import useStyles from '../styles/TableStyle';
 
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({

@@ -1,10 +1,10 @@
 import React from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import useStyles from './components/styles/DrawerStyle';
-import Nodes from './components/Nodes';
-import Services from './components/Services';
+import Nodes from './components/Node/Nodes';
+import Services from './components/Service/Services';
 import Portal from './components/Portal';
-import NodePage from './components/NodePage';
+import NodePage from './components/Node/NodePage';
 import {
   servicesRoute,
   nodesRoute,
