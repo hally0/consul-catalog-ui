@@ -22,11 +22,7 @@ import Typography from '@material-ui/core/Typography';
 import { grey } from '@material-ui/core/colors';
 import { Link } from 'react-router-dom';
 import { useTheme } from '@material-ui/core/styles';
-import {
-  nodesRoute,
-  servicesRoute,
-  servicePortalRoute,
-} from '../constants/Routes';
+import { nodesRoute, servicesRoute, portalRoute } from '../constants/Routes';
 import useStyles from './styles/DrawerStyle';
 import App from '../App';
 
@@ -48,7 +44,7 @@ function iconArray(name: string) {
 function routeArray(name: string) {
   switch (name) {
     case 'Portal':
-      return servicePortalRoute;
+      return portalRoute;
     case 'Services':
       return servicesRoute;
     case 'Nodes':
@@ -125,6 +121,7 @@ export default function MiniDrawer() {
             <ListItem
               component={Link}
               to={routeArray(text)}
+              replace
               button
               key={text}
               className={classes.styledLink}

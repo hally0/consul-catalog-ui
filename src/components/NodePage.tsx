@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
+
 import { Card, CardContent, Divider, Typography } from '@material-ui/core';
 import useStyles from './styles/CardStyle';
 import CatalogEndpoint from '../api/CatalogEndpoint';
@@ -23,15 +24,16 @@ interface RouteParams {
   id: string;
 }
 
-export const NodePage: React.FC<RouteComponentProps<RouteParams>> = (
-  props: RouteComponentProps<RouteParams>
-) => {
+export const NodePage: React.FunctionComponent<RouteComponentProps<
+  RouteParams
+>> = (props: RouteComponentProps<RouteParams>) => {
+  const { match } = props;
+  const nodeId = match.params.id;
+
   const [node, setNode] = useState<Node>();
   const [services, setServices] = useState<CatalogService[]>([]);
   const [catalogEndpoint] = useState<CatalogEndpoint>(new CatalogEndpoint());
   const [count, setCount] = useState(0);
-  const { match } = props;
-  const nodeId = match.params.id;
 
   useEffect(() => {
     catalogEndpoint.getNode(nodeId).then((results) => {
@@ -67,6 +69,7 @@ export const NodePage: React.FC<RouteComponentProps<RouteParams>> = (
                       <Divider />
                     </Typography>
                   </NameSection>
+
                   <Address>
                     <Typography
                       className={classes.address}

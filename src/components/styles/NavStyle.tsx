@@ -1,9 +1,9 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStylesNav = makeStyles((theme: Theme) =>
   createStyles({
     background: {
-      background: 'linear-gradient(to right, #2c3e50, #243b55)',
+      background: '#282c34',
     },
     root: {
       flexGrow: 1,
@@ -15,4 +15,4 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
-export default useStyles;
+export default useStylesNav;
